@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nhập mật khẩu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(270deg, #89f7fe, #66a6ff, #fbc2eb, #a6c0fe);
+      background-size: 800% 800%;
+      animation: gradientMove 12s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 300px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #password {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      text-align: center;
+      border-radius: 8px;
+      border: 2px solid #ccc;
+      margin-bottom: 15px;
+      letter-spacing: 5px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    #password:focus {
+      border-color: #66a6ff;
+      box-shadow: 0 0 10px #66a6ff;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .keypad button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #66a6ff;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .keypad button:hover {
+      background: #4e8cf4;
+      transform: scale(1.1);
+    }
+
+    .keypad button:active {
+      transform: scale(0.95);
+      background: #345ecf;
+    }
+
+    /* Hiệu ứng shake khi sai mật khẩu */
+    .shake {
+      animation: shakeAnim 0.4s;
+    }
+
+    @keyframes shakeAnim {
+      0% { transform: translateX(0px); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-8px); }
+      100% { transform: translateX(0px); }
+    }
+
+    .actions {
+      margin-top: 15px;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box" id="loginBox">
+    <h2>Hãy Nhập Ngày Sinh </h2>
+    <input type="password" id="password" readonly>
+    <div class="keypad">
+      <button onclick="pressNum('1')">1</button>
+      <button onclick="pressNum('2')">2</button>
+      <button onclick="pressNum('3')">3</button>
+      <button onclick="pressNum('4')">4</button>
+      <button onclick="pressNum('5')">5</button>
+      <button onclick="pressNum('6')">6</button>
+      <button onclick="pressNum('7')">7</button>
+      <button onclick="pressNum('8')">8</button>
+      <button onclick="pressNum('9')">9</button>
+      <button onclick="clearInput()">⌫</button>
+      <button onclick="pressNum('0')">0</button>
+      <button onclick="login()">✔</button>
+    </div>
+    <p id="error"></p>
+  </div>
+
+  <script>
+    function pressNum(num) {
+      document.getElementById("password").value += num;
+    }
+
+    function clearInput() {
+      let pw = document.getElementById("password");
+      pw.value = pw.value.slice(0, -1);
+    }
+
+    function login() {
+      const pass = document.getElementById("password").value;
+
+      if (pass === "28092005") {
+        window.location.href = "happybirthday.html";
+      } else {
+        let loginBox = document.getElementById("loginBox");
+        document.getElementById("error").textContent = "Sai mật khẩu!";
+        document.getElementById("password").value = "";
+        loginBox.classList.add("shake");
+
+        setTimeout(() => {
+          loginBox.classList.remove("shake");
+        }, 400);
+      }
+    }
+  </script>
+</body>
+</html>
